@@ -14,6 +14,8 @@ if (folderName.length === 1) {
   folderName = "0" + folderName;
 }
 
+console.log(`I will create the files for day ${dayNumber}`);
+
 let newFolderPath = `${__dirname}/../${folderName}`;
 if (!fs.existsSync(newFolderPath)) {
   fs.mkdirSync(newFolderPath);
