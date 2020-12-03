@@ -8,9 +8,17 @@ class Day3Grid {
 
   virtualLastCol;
 
-  constructor(input) {
+  constructor(input, movePattern) {
     this.data = input;
     this.virtualLastCol = input[0].length - 1;
+    if (movePattern) {
+      this.movePattern = movePattern;
+    } else {
+      this.movePattern = {
+        stepsRight: 3,
+        stepsDown: 1,
+      };
+    }
   }
 
   getCurrentPosition() {
@@ -22,9 +30,7 @@ class Day3Grid {
   }
 
   move() {
-    const stepsRight = 3;
-    const stepsDown = 1;
-    let newCol = this.currentCol + stepsRight;
+    let newCol = this.currentCol + this.movePattern.stepsRight;
 
     const movedOverTheBorder = newCol > this.virtualLastCol;
     if (movedOverTheBorder) {
@@ -32,7 +38,7 @@ class Day3Grid {
       newCol = newCol - this.virtualLastCol - 1;
     }
     this.currentCol = newCol;
-    this.currentRow = this.currentRow + 1;
+    this.currentRow = this.currentRow + this.movePattern.stepsDown;
   }
 
   isCurrentPositionInLastRow() {
