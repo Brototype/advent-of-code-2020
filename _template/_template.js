@@ -12,5 +12,9 @@ const data = fs
 part1();
 part2();
 
-function part1() {}
-function part2() {}
+function part1() {
+  console.log("part 1");
+}
+function part2() {
+  console.log("part 2");
+}
