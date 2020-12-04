@@ -18,7 +18,7 @@ function part1() {
   data.forEach((row, index) => {
     currentPassport.readLine(row);
     if (row === "" || index === data.length - 1) {
-      if (currentPassport.isPassportValid()) {
+      if (currentPassport.isPassportValidPartOne()) {
         validPassports.push(currentPassport);
       }
       currentPassport = new Passport();
@@ -30,4 +30,19 @@ function part1() {
 
 function part2() {
   console.log("part 2");
+
+  const validPassports = [];
+
+  let currentPassport = new Passport();
+  data.forEach((row, index) => {
+    currentPassport.readLine(row);
+    if (row === "" || index === data.length - 1) {
+      if (currentPassport.isPassportValidPartTwo()) {
+        validPassports.push(currentPassport);
+      }
+      currentPassport = new Passport();
+    }
+  });
+
+  console.log(validPassports.length);
 }
