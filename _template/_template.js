@@ -1,20 +1,11 @@
-const fs = require("fs");
-
-const demo = `${__dirname}/demo.txt`;
-const input = `${__dirname}/input.txt`;
-
-const data = fs
-  .readFileSync(demo)
-  .toString()
-  .split("\n")
-  .filter((x) => x !== "");
-
-part1();
-part2();
-
-function part1() {
+module.exports.part1 = (data) => {
   console.log("part 1");
-}
-function part2() {
+  let output = 1;
+  return output;
+};
+
+module.exports.part2 = (data) => {
   console.log("part 2");
-}
+  let output = 2;
+  return output;
+};

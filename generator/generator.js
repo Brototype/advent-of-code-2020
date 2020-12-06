@@ -6,10 +6,10 @@ const createMostRecent = true;
 
 if (createMostRecent) {
   const now = new Date();
-  dayNumber = now.getDay() - 1;
+  dayNumber = now.getDate();
 }
 
-folderName = "" + dayNumber;
+let folderName = "" + dayNumber;
 if (folderName.length === 1) {
   folderName = "0" + folderName;
 }
@@ -21,17 +21,20 @@ if (!fs.existsSync(newFolderPath)) {
   fs.mkdirSync(newFolderPath);
 }
 
-let newJsFilePath = `${__dirname}/../${folderName}/${folderName}.js`;
+let newJsFilePath = `${__dirname}/../${folderName}/day-${folderName}.js`;
 if (!fs.existsSync(newJsFilePath)) {
   fs.copyFileSync(`${__dirname}/../_template/_template.js`, newJsFilePath);
+}
+
+let newJsTestFilePath = `${__dirname}/../${folderName}/day-${folderName}.test.js`;
+if (!fs.existsSync(newJsTestFilePath)) {
+  fs.copyFileSync(
+    `${__dirname}/../_template/_template.test.js`,
+    newJsTestFilePath
+  );
 }
 
 let newInputFilePath = `${__dirname}/../${folderName}/input.txt`;
 if (!fs.existsSync(newInputFilePath)) {
   fs.closeSync(fs.openSync(newInputFilePath, "w"));
-}
-
-let newDemoFilePath = `${__dirname}/../${folderName}/demo.txt`;
-if (!fs.existsSync(newDemoFilePath)) {
-  fs.closeSync(fs.openSync(newDemoFilePath, "w"));
 }
