@@ -1,4 +1,14 @@
-runDay(5);
+const { generate } = require("./generator/generator");
+
+let dayNumber = 7;
+
+if (!dayNumber) {
+  const now = new Date();
+  dayNumber = now.getDate();
+}
+
+generate(dayNumber);
+runDay(dayNumber);
 
 function runDay(dayNumber) {
   const dayName = "day-" + dayNumber;

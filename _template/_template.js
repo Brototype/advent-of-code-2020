@@ -1,9 +1,7 @@
 module.exports.part1 = (data) => {
-  let output = 1;
-  return output;
+  return data.length;
 };
 
 module.exports.part2 = (data) => {
-  let output = 2;
-  return output;
+  return data.length;
 };

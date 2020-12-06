@@ -1,26 +1,26 @@
 const day = require("./day-6.js");
 
-describe("day-day-6", () => {
+describe("day-6", () => {
+  const data = (
+    "abc\n" +
+    "\n" +
+    "a\n" +
+    "b\n" +
+    "c\n" +
+    "\n" +
+    "ab\n" +
+    "ac\n" +
+    "\n" +
+    "a\n" +
+    "a\n" +
+    "a\n" +
+    "a\n" +
+    "\n" +
+    "b"
+  ).split("\n");
+
   describe("part one", () => {
     test("returns correct for demo", () => {
-      const input =
-        "abc\n" +
-        "\n" +
-        "a\n" +
-        "b\n" +
-        "c\n" +
-        "\n" +
-        "ab\n" +
-        "ac\n" +
-        "\n" +
-        "a\n" +
-        "a\n" +
-        "a\n" +
-        "a\n" +
-        "\n" +
-        "b";
-      const data = input.split("\n");
-
       expect(day.part1(data)).toBe(11);
     });
 
@@ -42,23 +42,7 @@ describe("day-day-6", () => {
     });
 
     test("split into groups", () => {
-      const input =
-        "abc\n" +
-        "\n" +
-        "a\n" +
-        "b\n" +
-        "c\n" +
-        "\n" +
-        "ab\n" +
-        "ac\n" +
-        "\n" +
-        "a\n" +
-        "a\n" +
-        "a\n" +
-        "a\n" +
-        "\n" +
-        "b";
-      const actual = day.splitIntoGroups(input.split("\n"));
+      const actual = day.splitIntoGroups(data);
       expect(actual).toHaveLength(5);
       expect(actual[0]).toEqual(["abc"]);
       expect(actual[1]).toEqual(["a", "b", "c"]);
@@ -70,41 +54,24 @@ describe("day-day-6", () => {
 
   describe("part two", () => {
     test("returns expected demo value", () => {
-      const input =
-        "abc\n" +
-        "\n" +
-        "a\n" +
-        "b\n" +
-        "c\n" +
-        "\n" +
-        "ab\n" +
-        "ac\n" +
-        "\n" +
-        "a\n" +
-        "a\n" +
-        "a\n" +
-        "a\n" +
-        "\n" +
-        "b";
-
-      expect(day.part2(input.split("\n"))).toBe(6);
+      expect(day.part2(data)).toBe(6);
     });
 
     test("countOfYes if all", () => {
-      let groupInput = "abc";
-      expect(day.countsOfYesIfAll(groupInput.split("\n"))).toBe(3);
+      let groupInputData = "abc".split("\n");
+      expect(day.countsOfYesIfAll(groupInputData)).toBe(3);
 
-      groupInput = "a\n" + "b\n" + "c";
-      expect(day.countsOfYesIfAll(groupInput.split("\n"))).toBe(0);
+      groupInputData = ("a\n" + "b\n" + "c").split("\n");
+      expect(day.countsOfYesIfAll(groupInputData)).toBe(0);
 
-      groupInput = "ab\n" + "ac";
-      expect(day.countsOfYesIfAll(groupInput.split("\n"))).toBe(1);
+      groupInputData = ("ab\n" + "ac").split("\n");
+      expect(day.countsOfYesIfAll(groupInputData)).toBe(1);
 
-      groupInput = "a\n" + "a\n" + "a\n" + "a";
-      expect(day.countsOfYesIfAll(groupInput.split("\n"))).toBe(1);
+      groupInputData = ("a\n" + "a\n" + "a\n" + "a").split("\n");
+      expect(day.countsOfYesIfAll(groupInputData)).toBe(1);
 
-      groupInput = "b";
-      expect(day.countsOfYesIfAll(groupInput.split("\n"))).toBe(1);
+      groupInputData = "b".split("\n");
+      expect(day.countsOfYesIfAll(groupInputData)).toBe(1);
     });
   });
 });

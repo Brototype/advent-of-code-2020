@@ -1,6 +1,6 @@
 const day05 = require("./day-5");
 
-describe("day05", () => {
+describe("day-5", () => {
   describe("part one", () => {
     describe("helpers", () => {
       test("getSeatId", () => {

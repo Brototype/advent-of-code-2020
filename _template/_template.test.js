@@ -1,15 +1,17 @@
-const day = require("./day-.js");
+const day = require("./#DAYSTRING.js");
 
-describe("day-", () => {
+describe("#DAYSTRING", () => {
+  const data = ("a" + "b").split("\n");
+
   describe("part one", () => {
-    test("returns something", () => {
-      expect(day.part1()).toBe(1);
+    test("works with demo", () => {
+      expect(day.part1(data)).toBe(1);
     });
   });
 
   describe("part two", () => {
-    test("returns something", () => {
-      expect(day.part2()).toBe(2);
+    test("works with demo", () => {
+      expect(day.part2(data)).toBe(1);
     });
   });
 });
