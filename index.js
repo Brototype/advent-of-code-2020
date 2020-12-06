@@ -1,13 +1,15 @@
-runDay("06");
+runDay(5);
 
 function runDay(dayNumber) {
+  const dayName = "day-" + dayNumber;
   const fs = require("fs");
 
-  const day = require(`./${dayNumber}/day-${dayNumber}.js`);
-  const inputPath = `${__dirname}/${dayNumber}/input.txt`;
+  const day = require(`./${dayName}/${dayName}.js`);
+  const inputPath = `${__dirname}/${dayName}/input.txt`;
 
   const data = fs.readFileSync(inputPath).toString().split("\n");
 
-  console.log(day.part1(data));
-  console.log(day.part2(data));
+  console.log(dayName);
+  console.log("part 1:", day.part1(data));
+  console.log("part 2:", day.part2(data));
 }

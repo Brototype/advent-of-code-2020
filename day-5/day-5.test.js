@@ -1,4 +1,4 @@
-const day05 = require("./05");
+const day05 = require("./day-5");
 
 describe("day05", () => {
   describe("part one", () => {

@@ -1,5 +1,4 @@
 module.exports.part1 = (data) => {
-  console.log("part 1");
   const dataOfGroups = this.splitIntoGroups(data);
 
   let sumOfYesCounts = 0;
@@ -63,7 +62,6 @@ module.exports.countsOfYesIfAll = (groupData) => {
 };
 
 module.exports.part2 = (data) => {
-  console.log("part 2");
   const dataOfGroups = this.splitIntoGroups(data);
 
   let sumOfYesCounts = 0;

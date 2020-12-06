@@ -1,18 +1,4 @@
-const fs = require("fs");
-
-const demo = `${__dirname}/demo.txt`;
-const input = `${__dirname}/input.txt`;
-
-const data = fs
-  .readFileSync(input)
-  .toString()
-  .split("\n")
-  .filter((x) => x !== "");
-
-part1();
-part2();
-
-function part1() {
+module.exports.part1 = (data) => {
   let validCount = 0;
 
   for (let e of data) {
@@ -21,7 +7,7 @@ function part1() {
     }
   }
 
-  console.log("part one:", validCount);
+  return validCount;
 
   function isValid(e) {
     const array = e.split(": ");
@@ -42,9 +28,9 @@ function part1() {
       return false;
     }
   }
-}
+};
 
-function part2() {
+module.exports.part2 = (data) => {
   let validCount = 0;
 
   for (let e of data) {
@@ -53,7 +39,7 @@ function part2() {
     }
   }
 
-  console.log("part two:", validCount);
+  return validCount;
 
   function isValid(e) {
     const array = e.split(": ");
@@ -74,4 +60,4 @@ function part2() {
     }
     return false;
   }
-}
+};

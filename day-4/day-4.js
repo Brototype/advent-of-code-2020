@@ -1,17 +1,6 @@
-const fs = require("fs");
 const { Passport } = require("./passport");
 
-const demo = `${__dirname}/demo.txt`;
-const input = `${__dirname}/input.txt`;
-
-const data = fs.readFileSync(input).toString().split("\n");
-
-part1();
-part2();
-
-function part1() {
-  console.log("part 1");
-
+module.exports.part1 = (data) => {
   const validPassports = [];
 
   let currentPassport = new Passport();
@@ -25,12 +14,10 @@ function part1() {
     }
   });
 
-  console.log(validPassports.length);
-}
+  return validPassports.length;
+};
 
-function part2() {
-  console.log("part 2");
-
+module.exports.part2 = (data) => {
   const validPassports = [];
 
   let currentPassport = new Passport();
@@ -44,5 +31,5 @@ function part2() {
     }
   });
 
-  console.log(validPassports.length);
-}
+  return validPassports.length;
+};

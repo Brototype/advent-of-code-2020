@@ -1,6 +1,6 @@
-const day = require("./day-06.js");
+const day = require("./day-6.js");
 
-describe("day-06", () => {
+describe("day-day-6", () => {
   describe("part one", () => {
     test("returns correct for demo", () => {
       const input =
