@@ -39,8 +39,37 @@ module.exports.countsOfYesIfAny = (groupData) => {
   return setOfYesQuestions.size;
 };
 
+module.exports.countsOfYesIfAll = (groupData) => {
+  const questionsEveryoneHas = new Set();
+
+  function everyoneHasThisQuestion(questionsWithYesOfThatPerson) {
+    for (let answersOfAPerson of groupData) {
+      if (!answersOfAPerson.includes(questionsWithYesOfThatPerson)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  for (let answersOfAPerson of groupData) {
+    const questionsWithYesOfThatPerson = answersOfAPerson.split("");
+    for (let questionWithYesOfThatPerson of questionsWithYesOfThatPerson) {
+      if (everyoneHasThisQuestion(questionWithYesOfThatPerson)) {
+        questionsEveryoneHas.add(questionWithYesOfThatPerson);
+      }
+    }
+  }
+  return questionsEveryoneHas.size;
+};
+
 module.exports.part2 = (data) => {
   console.log("part 2");
-  let output = 2;
-  return output;
+  const dataOfGroups = this.splitIntoGroups(data);
+
+  let sumOfYesCounts = 0;
+  for (let groupData of dataOfGroups) {
+    sumOfYesCounts = sumOfYesCounts + this.countsOfYesIfAll(groupData);
+  }
+
+  return sumOfYesCounts;
 };

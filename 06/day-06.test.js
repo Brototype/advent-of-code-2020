@@ -25,10 +25,10 @@ describe("day-06", () => {
     });
 
     test("countOfYes if any", () => {
-      let groupInput = "a\n" + "b\n" + "c";
+      let groupInput = "abc";
       expect(day.countsOfYesIfAny(groupInput.split("\n"))).toBe(3);
 
-      groupInput = "abc";
+      groupInput = "a\n" + "b\n" + "c";
       expect(day.countsOfYesIfAny(groupInput.split("\n"))).toBe(3);
 
       groupInput = "ab\n" + "ac";
@@ -69,8 +69,42 @@ describe("day-06", () => {
   });
 
   describe("part two", () => {
-    test("returns something", () => {
-      expect(day.part2()).toBe(2);
+    test("returns expected demo value", () => {
+      const input =
+        "abc\n" +
+        "\n" +
+        "a\n" +
+        "b\n" +
+        "c\n" +
+        "\n" +
+        "ab\n" +
+        "ac\n" +
+        "\n" +
+        "a\n" +
+        "a\n" +
+        "a\n" +
+        "a\n" +
+        "\n" +
+        "b";
+
+      expect(day.part2(input.split("\n"))).toBe(6);
+    });
+
+    test("countOfYes if all", () => {
+      let groupInput = "abc";
+      expect(day.countsOfYesIfAll(groupInput.split("\n"))).toBe(3);
+
+      groupInput = "a\n" + "b\n" + "c";
+      expect(day.countsOfYesIfAll(groupInput.split("\n"))).toBe(0);
+
+      groupInput = "ab\n" + "ac";
+      expect(day.countsOfYesIfAll(groupInput.split("\n"))).toBe(1);
+
+      groupInput = "a\n" + "a\n" + "a\n" + "a";
+      expect(day.countsOfYesIfAll(groupInput.split("\n"))).toBe(1);
+
+      groupInput = "b";
+      expect(day.countsOfYesIfAll(groupInput.split("\n"))).toBe(1);
     });
   });
 });
