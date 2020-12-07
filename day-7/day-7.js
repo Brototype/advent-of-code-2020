@@ -15,21 +15,17 @@ module.exports.toContainedInMap = (data) => {
 
 module.exports.getAllRecursiveContainers = (containedInMap, bag) => {
   let totalList = [];
-  const topLevelList = containedInMap.get(bag);
-  if (!topLevelList) {
+  const bagsThatContainBag = containedInMap.get(bag);
+  if (!bagsThatContainBag) {
     return [];
   }
-  containedInMap.delete(bag);
-  for (bag of topLevelList) {
+
+  for (bag of bagsThatContainBag) {
     const allRecursiveContainers = this.getAllRecursiveContainers(
       containedInMap,
       bag
     );
-    if (allRecursiveContainers.length === 0) {
-      totalList = [...totalList, bag];
-    } else {
-      totalList = [...totalList, ...allRecursiveContainers, bag];
-    }
+    totalList = [...totalList, ...allRecursiveContainers, bag];
   }
 
   return [...new Set(totalList)];
