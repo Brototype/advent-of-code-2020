@@ -63,5 +63,47 @@ module.exports.addToMap = (map, row) => {
 };
 
 module.exports.part2 = (data) => {
-  return data.length;
+  const myBag = "shiny gold";
+  const a = recursiveBagCount(this.convertToContainsMap(data), myBag);
+  return a;
+};
+
+function recursiveBagCount(rules, bag) {
+  const contentsOfBag = rules.get(bag);
+  if (contentsOfBag == null) return 0;
+  return contentsOfBag.reduce(
+    (result, currentBag) =>
+      result + currentBag.count * (1 + recursiveBagCount(rules, currentBag.id)),
+    0
+  );
+}
+
+module.exports.convertToContainsMap = (data) => {
+  const containedInMap = new Map();
+  for (let row of data) {
+    let containerId = row.split(" contain ")[0].replace(" bags", "");
+    const containingBags = [];
+
+    let bags = row.split(" contain ")[1];
+    bags = bags.replace(".", "");
+    const bagStrings = bags.split(", ");
+    for (let bagString of bagStrings) {
+      if (bagString !== "no other bags") {
+        const count = parseInt(bagString);
+
+        bagString = bagString.substr(2);
+
+        if (bagString.endsWith(" bags")) {
+          bagString = bagString.substr(0, bagString.length - 5);
+        } else {
+          bagString = bagString.substr(0, bagString.length - 4);
+        }
+
+        containingBags.push({ count, id: bagString });
+      }
+    }
+
+    containedInMap.set(containerId, containingBags);
+  }
+  return containedInMap;
 };
