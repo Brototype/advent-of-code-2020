@@ -1,4 +1,8 @@
 # Advent of Code 2020
 
-* running the index file will take the current day, generate a folder structure and run it.
-* a specific day can be selected by adjusting the value of `dayNumber` in the index file.
+I aim for a mix of horrible code and well tested readable code. Let's see if that works out this time :D 
+
+Language: Javascript
+Tests: Jest
+
+This time I created a little generator, that creates a folder, and file structure for each day. Executing the index file will automatically generate and run the current day.
