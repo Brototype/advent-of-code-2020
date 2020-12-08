@@ -1,14 +1,20 @@
 class IntCodeCompiler {
-  accumulator = 0;
-  currentInstructionIndex = 0;
-  alreadyHandledIndexes = [];
-
   constructor(instructions) {
+    this._init(instructions);
+  }
+
+  _init(instructions) {
     this.instructions = instructions;
+    this.accumulator = 0;
+    this.currentInstructionIndex = 0;
+    this.alreadyHandledIndexes = [];
   }
 
   compile() {
     while (!this.instructionAlreadyExecuted()) {
+      if (this.currentInstructionIndex === this.instructions.length) {
+        return this.accumulator;
+      }
       this.handleInstruction(this.instructions[this.currentInstructionIndex]);
     }
     return this.accumulator;
@@ -53,6 +59,16 @@ class IntCodeCompiler {
 
   instructionAlreadyExecuted() {
     return this.alreadyHandledIndexes.includes(this.currentInstructionIndex);
+  }
+
+  hasProgramEndlessLoop(instructions) {
+    this._init(instructions);
+    const result = this.compile();
+    if (this.instructionAlreadyExecuted()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 
