@@ -5,8 +5,38 @@ module.exports.part1 = (data) => {
   );
 };
 
-module.exports.part2 = (data) => {
-  return data.length;
+module.exports.part2 = (data, goal) => {
+  if (!goal) {
+    goal = this.part1(data);
+  }
+
+  const numbers = data.map((x) => parseInt(x));
+
+  let currentRange = [];
+
+  let rangeMinIndex = 0;
+  let rangeMaxIndex = rangeMinIndex + 1;
+  currentRange.push(numbers[rangeMinIndex]);
+  currentRange.push(numbers[rangeMaxIndex]);
+  let currentSum = currentRange.reduce((a, b) => a + b, 0);
+  while (currentSum !== goal) {
+    if (currentSum > goal) {
+      // if currentSum > solutionFromPart1 increment rangeMinIndex and reset setMaxIndex = rangeMinIndex + 1
+      rangeMinIndex += 1;
+      rangeMaxIndex = rangeMinIndex + 1;
+      currentRange = [];
+      currentRange.push(numbers[rangeMinIndex]);
+      currentRange.push(numbers[rangeMaxIndex]);
+      currentSum = currentRange.reduce((a, b) => a + b, 0);
+    } else {
+      // increment rangeMaxIndex -> pushing numbers to the range
+      rangeMaxIndex += 1;
+      currentRange.push(numbers[rangeMaxIndex]);
+      currentSum += numbers[rangeMaxIndex];
+    }
+  }
+
+  return Math.min(...currentRange) + Math.max(...currentRange);
 };
 
 module.exports.getAllPairs = (numbers) => {
