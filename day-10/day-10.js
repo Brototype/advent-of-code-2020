@@ -5,7 +5,19 @@ module.exports.part1 = (data) => {
 };
 
 module.exports.part2 = (data) => {
-  return data.length;
+  let adapters = data.map((x) => Number(x));
+  adapters.push(0);
+  adapters.sort((a, b) => a - b);
+  let ways = adapters.map((x, i) => (i === 0 ? 1 : 0));
+  for (let i = 0; i < ways.length; i++) {
+    for (let j = i - 3; j < i; j++) {
+      if (adapters[i] <= adapters[j] + 3) {
+        ways[i] += ways[j];
+      }
+    }
+  }
+
+  return ways[ways.length - 1];
 };
 
 module.exports.getDifferences = (jolts) => {
