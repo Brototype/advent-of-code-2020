@@ -1,8 +1,9 @@
-module.exports.part1 = (data) => {
-  return this.findFirstViolation(
+module.exports.part1 = (data, preambleLength = 25) => {
+  const findFirstViolation = this.findFirstViolation(
     data.map((x) => parseInt(x)),
-    25
+    preambleLength
   );
+  return findFirstViolation;
 };
 
 module.exports.part2 = (data, goal) => {
