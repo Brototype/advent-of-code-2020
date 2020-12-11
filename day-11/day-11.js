@@ -11,5 +11,12 @@ module.exports.part1 = (data) => {
 };
 
 module.exports.part2 = (data) => {
-  return data.length;
+  const grid = new SeatGrid(data, 2);
+
+  let changesAfterLastApply = grid.applyRules();
+
+  while (changesAfterLastApply !== 0) {
+    changesAfterLastApply = grid.applyRules();
+  }
+  return grid.getOccupiedSeats();
 };

@@ -123,4 +123,82 @@ describe("seat grid", () => {
     expect(occupiedAdjacentSeats).toBe(0);
     expect(grid.getNewStateForPosition(0, 3)).toBe("#");
   });
+
+  describe("visibleOccupiedSeats", () => {
+    test("sees 8", () => {
+      const input = (
+        ".......#.\n" +
+        "...#.....\n" +
+        ".#.......\n" +
+        ".........\n" +
+        "..#L....#\n" +
+        "....#....\n" +
+        ".........\n" +
+        "#........\n" +
+        "...#....."
+      ).split("\n");
+      const g = new SeatGrid(input);
+
+      expect(g.getNumberOfVisibleOccupiedAdjacentSeats(4, 3)).toBe(8);
+    });
+
+    test("sees 0", () => {
+      const input = (
+        ".............\n" +
+        ".L.L.#.#.#.#.\n" +
+        "............."
+      ).split("\n");
+      const g = new SeatGrid(input);
+      expect(g.getNumberOfVisibleOccupiedAdjacentSeats(1, 2)).toBe(0);
+    });
+
+    test("sees 0 two", () => {
+      const input = (
+        ".##.##.\n" +
+        "#.#.#.#\n" +
+        "##...##\n" +
+        "...L...\n" +
+        "##...##\n" +
+        "#.#.#.#\n" +
+        ".##.##."
+      ).split("\n");
+      const g = new SeatGrid(input);
+      expect(g.getNumberOfVisibleOccupiedAdjacentSeats(3, 3)).toBe(0);
+    });
+
+    test("part 2", () => {
+      const input = (
+        "#.L#.L#.L#\n" +
+        "#LLLLLL.LL\n" +
+        "L.L.L..#..\n" +
+        "##L#.#L.L#\n" +
+        "L.L#.#L.L#\n" +
+        "#.L####.LL\n" +
+        "..#.#.....\n" +
+        "LLL###LLL#\n" +
+        "#.LLLLL#.L\n" +
+        "#.L#LL#.L#"
+      ).split("\n");
+      const g = new SeatGrid(input, 2);
+
+      const expected = g.convertToGridData(
+        (
+          "#.L#.L#.L#\n" +
+          "#LLLLLL.LL\n" +
+          "L.L.L..#..\n" +
+          "##L#.#L.L#\n" +
+          "L.L#.LL.L#\n" +
+          "#.LLLL#.LL\n" +
+          "..#.L.....\n" +
+          "LLL###LLL#\n" +
+          "#.LLLLL#.L\n" +
+          "#.L#LL#.L#"
+        ).split("\n")
+      );
+
+      g.applyRules();
+      expect(g.gridData).toEqual(expected);
+      expect(g.getOccupiedSeats()).toBe(26);
+    });
+  });
 });

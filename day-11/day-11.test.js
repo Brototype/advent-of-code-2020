@@ -23,6 +23,9 @@ describe("day-11", () => {
   });
 
   describe("part two", () => {
-    test("works with demo", () => {});
+    test("works with demo", () => {
+      const numberOfChanges = day.part2(mainDemo);
+      expect(numberOfChanges).toBe(26);
+    });
   });
 });
