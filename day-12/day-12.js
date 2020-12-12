@@ -12,5 +12,12 @@ module.exports.part1 = (data) => {
 };
 
 module.exports.part2 = (data) => {
-  return data.length;
+  const ship = new Ship();
+  data.forEach((instruction) => {
+    ship.move(instruction, true);
+  });
+
+  return (
+    Math.abs(ship.currentPosition.north) + Math.abs(ship.currentPosition.east)
+  );
 };

@@ -1,5 +1,5 @@
 const { Ship } = require("./ship");
-describe("ship", () => {
+describe("ship part 1", () => {
   test("moves North", () => {
     const s = new Ship();
     s.move("N10");
@@ -136,5 +136,91 @@ describe("ship", () => {
     s.facingIndex = 1;
     s.move("F10");
     expect(s.currentPosition).toEqual({ north: 0, east: 0 });
+  });
+});
+
+describe("ship part 2", () => {
+  test("waypoint moves with ship", () => {
+    const s = new Ship();
+    s.relativePositionOfWaypoint = { north: 1, east: 10 };
+    s._moveShipEast(10);
+    expect(s.relativePositionOfWaypoint).toEqual({ north: 1, east: 10 });
+    s._moveShipSouth(5);
+    expect(s.relativePositionOfWaypoint).toEqual({ north: 1, east: 10 });
+    s._moveShipWest(30);
+    expect(s.relativePositionOfWaypoint).toEqual({ north: 1, east: 10 });
+    s._moveShipNorth(6);
+    expect(s.relativePositionOfWaypoint).toEqual({ north: 1, east: 10 });
+  });
+
+  test("ship moves related to waypoint", () => {
+    const s = new Ship();
+    s.relativePositionOfWaypoint = { north: 1, east: 10 };
+    s._moveForwardDependingOnWaypoint(10);
+    expect(s.currentPosition).toEqual({ north: 10, east: 100 });
+    expect(s.relativePositionOfWaypoint).toEqual({ north: 1, east: 10 });
+  });
+
+  test("ship moves 7 times", () => {
+    const s = new Ship();
+    s.relativePositionOfWaypoint = { north: 4, east: 10 };
+    s.currentPosition = { north: 10, east: 100 };
+    s._moveForwardDependingOnWaypoint(7);
+    expect(s.relativePositionOfWaypoint).toEqual({ north: 4, east: 10 });
+    expect(s.currentPosition).toEqual({ north: 38, east: 170 });
+  });
+
+  test("waypoint moves. ship remains", () => {
+    const s = new Ship();
+    s.relativePositionOfWaypoint = { north: 1, east: 10 };
+    s._moveWaypointNorth(3);
+    expect(s.relativePositionOfWaypoint).toEqual({ north: 4, east: 10 });
+    expect(s.currentPosition).toEqual({ north: 0, east: 0 });
+  });
+
+  test("F10 moves the ship to the waypoint 10 times ", () => {
+    const s = new Ship();
+    s.relativePositionOfWaypoint = { north: 1, east: 10 };
+    s.currentPosition = { north: 0, east: 0 };
+    s.move("F10", true);
+    expect(s.currentPosition).toEqual({ north: 10, east: 100 });
+    expect(s.relativePositionOfWaypoint).toEqual({ north: 1, east: 10 });
+  });
+
+  test("N3 moves the waypoint,not the ship", () => {
+    const s = new Ship();
+    s.relativePositionOfWaypoint = { north: 1, east: 10 };
+    s.currentPosition = { north: 10, east: 100 };
+    s.move("N3", true);
+    expect(s.relativePositionOfWaypoint).toEqual({ north: 4, east: 10 });
+    expect(s.currentPosition).toEqual({ north: 10, east: 100 });
+  });
+
+  test("F7 moves the ship to the waypoint 7 times", () => {
+    const s = new Ship();
+    s.relativePositionOfWaypoint = { north: 4, east: 10 };
+    s.currentPosition = { north: 10, east: 100 };
+    s.move("F7", true);
+    expect(s.relativePositionOfWaypoint).toEqual({ north: 4, east: 10 });
+    expect(s.currentPosition).toEqual({ north: 38, east: 170 });
+  });
+
+  test("R90 rotates the waypoint around the ship clockwise 90 degrees", () => {
+    const s = new Ship();
+    s.currentPosition = { north: 38, east: 170 };
+    s.relativePositionOfWaypoint = { north: 4, east: 10 };
+    s.move("R90", true);
+
+    expect(s.relativePositionOfWaypoint).toEqual({ north: -10, east: 4 });
+    expect(s.currentPosition).toEqual({ north: 38, east: 170 });
+  });
+
+  test("F11 moves the ship to the waypoint 11 times", () => {
+    const s = new Ship();
+    s.currentPosition = { north: 38, east: 170 };
+    s.relativePositionOfWaypoint = { north: -10, east: 4 };
+    s.move("F11", true);
+    expect(s.relativePositionOfWaypoint).toEqual({ north: -10, east: 4 });
+    expect(s.currentPosition).toEqual({ north: -72, east: 214 });
   });
 });
