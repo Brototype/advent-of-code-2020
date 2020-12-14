@@ -1,7 +1,7 @@
 const { generate } = require("./generator/generator");
 
 // set the dayNumber to generate / run a specific day
-let dayNumber = 13;
+let dayNumber;
 
 if (!dayNumber) {
   const now = new Date();
