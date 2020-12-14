@@ -20,19 +20,22 @@ describe("day-14", () => {
     });
 
     test("apply 11", () => {
-      const m = new day.Memory("XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X");
+      const m = new day.Memory();
+      m.mask = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X";
       m.apply(8, 11);
       expect(m.data.get(8)).toEqual("000000000000000000000000000001001001");
     });
 
     test("apply 101", () => {
-      const m = new day.Memory("XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X");
+      const m = new day.Memory();
+      m.mask = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X";
       m.apply(7, 101);
-      expect(m.data.get(8)).toEqual("000000000000000000000000000001100101");
+      expect(m.data.get(7)).toEqual("000000000000000000000000000001100101");
     });
 
     test("apply 0", () => {
-      const m = new day.Memory("XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X");
+      const m = new day.Memory();
+      m.mask = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X";
       m.apply(8, 0);
       expect(m.data.get(8)).toEqual("000000000000000000000000000001000000");
     });
