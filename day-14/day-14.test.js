@@ -39,6 +39,15 @@ describe("day-14", () => {
   });
 
   describe("part two", () => {
-    test("works with demo", () => {});
+    test("works with demo", () => {
+      const demo = (
+        "mask = 000000000000000000000000000000X1001X\n" +
+        "mem[42] = 100\n" +
+        "mask = 00000000000000000000000000000000X0XX\n" +
+        "mem[26] = 1"
+      ).split("\n");
+
+      expect(day.part2(demo)).toBe(208);
+    });
   });
 });
