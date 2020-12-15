@@ -1,51 +1,39 @@
-function geMostRecentMap(numbers) {
-  const numberRoundsMap = new Map();
-  for (let round = 1; round <= numbers.length; round++) {
-    const index = round - 1;
-    const currentNumber = numbers[index];
-    const lastTwoRounds = numberRoundsMap.get(currentNumber);
-    if (!lastTwoRounds) {
-      numberRoundsMap.set(currentNumber, [round]);
+function getSpokenNumberOfRound(numbers, targetRound) {
+  const numberLastTurnMap = new Map();
+  let round = 1;
+  let lastNumber = numbers[numbers.length - 1];
+  let newNumber;
+
+  // init map
+  numbers.forEach((number) => {
+    numberLastTurnMap.set(number, round);
+    round++;
+  });
+
+  // play
+  while (round <= targetRound) {
+    if (numberLastTurnMap.has(lastNumber)) {
+      newNumber = round - 1 - numberLastTurnMap.get(lastNumber);
     } else {
-      if (lastTwoRounds.length < 2) {
-        numberRoundsMap.set(currentNumber, [...lastTwoRounds, round]);
-      } else {
-        const newArray = [lastTwoRounds[1], round];
-        numberRoundsMap.set(currentNumber, newArray);
-      }
+      newNumber = 0;
     }
+    numberLastTurnMap.set(lastNumber, round - 1);
+    lastNumber = newNumber;
+    round++;
   }
-  return numberRoundsMap;
+  return lastNumber;
 }
 
 module.exports.part1 = (data) => {
   const input = data[0];
   let numbers = input.split(",").map((x) => Number(x));
-
   const targetRound = 2020;
-
-  // initialize the map
-  let numberRoundsMap = geMostRecentMap(numbers);
-
-  for (let round = numbers.length + 1; round <= targetRound; round++) {
-    const newIndex = round - 1;
-    const lastNumberSpoken = numbers[newIndex - 1];
-    if (numberRoundsMap.get(lastNumberSpoken).length === 1) {
-      // first time spoken
-      numbers.push(0);
-    } else {
-      // has been spoken >= twice before
-      const delta =
-        numberRoundsMap.get(lastNumberSpoken)[1] -
-        numberRoundsMap.get(lastNumberSpoken)[0];
-      numbers.push(delta);
-    }
-    numberRoundsMap = geMostRecentMap(numbers);
-  }
-
-  return numbers[targetRound - 1];
+  return getSpokenNumberOfRound(numbers, targetRound);
 };
 
 module.exports.part2 = (data) => {
-  return data.length;
+  const input = data[0];
+  let numbers = input.split(",").map((x) => Number(x));
+  const targetRound = 30000000;
+  return getSpokenNumberOfRound(numbers, targetRound);
 };

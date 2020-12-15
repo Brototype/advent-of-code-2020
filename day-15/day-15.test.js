@@ -39,6 +39,17 @@ describe("day-15", () => {
   });
 
   describe("part two", () => {
-    test("works with demo", () => {});
+    test("works with demo1", () => {
+      const demo = "0,3,6".split("\n");
+      expect(day.part2(demo)).toBe(175594);
+    });
+    test("works with demo1", () => {
+      const demo = "1,3,2".split("\n");
+      expect(day.part2(demo)).toBe(2578);
+    });
+    test("works with demo1", () => {
+      const demo = "2,1,3".split("\n");
+      expect(day.part2(demo)).toBe(3544142);
+    });
   });
 });
