@@ -1,5 +1,6 @@
 const day = require("./day-17.js");
-const { PocketDimension } = require("./pocket-dimension");
+const { PocketDimension4d } = require("./pocket-dimension-4d");
+const { PocketDimension3d } = require("./pocket-dimension-3d");
 
 describe("day-17", () => {
   describe("part one", () => {
@@ -23,14 +24,30 @@ describe("day-17", () => {
   });
 
   describe("part two", () => {
-    test("works with demo", () => {});
+    test("works with demo", () => {
+      const data = (".#.\n" + "..#\n" + "###").split("\n");
+      expect(day.part2(data)).toBe(848);
+    });
+    test("works with input", () => {
+      const data = (
+        "##......\n" +
+        ".##...#.\n" +
+        ".#######\n" +
+        "..###.##\n" +
+        ".#.###..\n" +
+        "..#.####\n" +
+        "##.####.\n" +
+        "##..#.##"
+      ).split("\n");
+      expect(day.part2(data)).toBe(2572);
+    });
   });
 });
 
-describe("PocketDimension", () => {
+describe("PocketDimension3d", () => {
   test("happy flow", () => {
     const data = (".#.\n" + "..#\n" + "###").split("\n");
-    const pd = new PocketDimension();
+    const pd = new PocketDimension3d();
 
     //Before any cycles:
     pd.initialize(data);
@@ -68,9 +85,50 @@ describe("PocketDimension", () => {
 
   test("demo", () => {
     const data = (".#.\n" + "..#\n" + "###").split("\n");
-    const pd = new PocketDimension();
+    const pd = new PocketDimension3d();
     pd.initialize(data);
     pd.runBootProcess();
     expect(pd.getActiveCubes()).toBe(112);
+  });
+});
+
+describe("PocketDimension4d", () => {
+  test("happy path", () => {
+    const pd = new PocketDimension4d();
+    const data = (".#.\n" + "..#\n" + "###").split("\n");
+    pd.initialize(data);
+
+    pd.printLayer(0, 0);
+
+    pd.runCycle();
+    // after 1 cycle
+    pd.printLayer(-1, -1);
+    pd.printLayer(0, -1);
+    pd.printLayer(-1, 0);
+    pd.printLayer(0, 0);
+    pd.printLayer(1, 0);
+    pd.printLayer(-1, 1);
+    pd.printLayer(0, 1);
+    pd.printLayer(1, 1);
+    expect(pd.coordinatesOfActiveCubes.size).toBe(29);
+
+    pd.runCycle();
+    // after 1 cycle
+    expect(pd.coordinatesOfActiveCubes.size).toBe(60);
+  });
+  test("80 neighbors", () => {
+    const pd = new PocketDimension4d();
+    const data = ".\n".split("\n");
+    pd.initialize(data);
+    const n = pd.getNewNeighbors("0,0,0,0");
+    expect(n).toHaveLength(80);
+  });
+
+  test("demo", () => {
+    const data = (".#.\n" + "..#\n" + "###").split("\n");
+    const pd = new PocketDimension4d();
+    pd.initialize(data);
+    pd.runBootProcess();
+    expect(pd.getActiveCubes()).toBe(848);
   });
 });

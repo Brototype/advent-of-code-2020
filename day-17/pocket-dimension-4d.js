@@ -1,17 +1,18 @@
-module.exports.PocketDimension = class PocketDimension {
-  coordinatesOfActiveCubes = new Set(); //"x,y,z"
-  allCoordinatesAndStatus = new Map(); // "x,y,z" => "#" or "."
+module.exports.PocketDimension4d = class PocketDimension4d {
+  coordinatesOfActiveCubes = new Set(); //"x,y,z,w"
+  allCoordinatesAndStatus = new Map(); // "x,y,z,w" => "#" or "."
 
   constructor() {}
 
   initialize(data) {
     const z = 0;
+    const w = 0;
     for (let y = 0; y < data.length; y++) {
       const row = data[y];
       const cols = row.split("");
       for (let x = 0; x < cols.length; x++) {
         const active = cols[x] !== ".";
-        const coordinateString = this.coordinatesToString(x, y, z);
+        const coordinateString = this.coordinatesToString(x, y, z, w);
         if (active) {
           this.coordinatesOfActiveCubes.add(coordinateString);
         }
@@ -75,12 +76,12 @@ module.exports.PocketDimension = class PocketDimension {
     this.allCoordinatesAndStatus = newAllCoordinatesAndStatus;
   }
 
-  printLayer(z = 0) {
-    let wholeString = "";
+  printLayer(z = 0, w = 0) {
+    let wholeString = "z=" + z + " w=" + w + "\n";
     for (let y = -10; y <= 10; y++) {
       let lineString = "";
       for (let x = -10; x <= 10; x++) {
-        const s = this.coordinatesToString(x, y, z);
+        const s = this.coordinatesToString(x, y, z, w);
         if (this.allCoordinatesAndStatus.has(s)) {
           lineString = lineString + this.allCoordinatesAndStatus.get(s);
         }
@@ -98,9 +99,11 @@ module.exports.PocketDimension = class PocketDimension {
     for (let cX = coords.x - 1; cX <= coords.x + 1; cX++) {
       for (let cY = coords.y - 1; cY <= coords.y + 1; cY++) {
         for (let cZ = coords.z - 1; cZ <= coords.z + 1; cZ++) {
-          const s = this.coordinatesToString(cX, cY, cZ);
-          if (s !== key && this.coordinatesOfActiveCubes.has(s)) {
-            numberOfActiveNeighbors++;
+          for (let cW = coords.w - 1; cW <= coords.w + 1; cW++) {
+            const s = this.coordinatesToString(cX, cY, cZ, cW);
+            if (s !== key && this.coordinatesOfActiveCubes.has(s)) {
+              numberOfActiveNeighbors++;
+            }
           }
         }
       }
@@ -114,9 +117,11 @@ module.exports.PocketDimension = class PocketDimension {
     for (let cX = coords.x - 1; cX <= coords.x + 1; cX++) {
       for (let cY = coords.y - 1; cY <= coords.y + 1; cY++) {
         for (let cZ = coords.z - 1; cZ <= coords.z + 1; cZ++) {
-          const s = this.coordinatesToString(cX, cY, cZ);
-          if (!this.allCoordinatesAndStatus.has(s)) {
-            newNeighbors.push(s);
+          for (let cW = coords.w - 1; cW <= coords.w + 1; cW++) {
+            const s = this.coordinatesToString(cX, cY, cZ, cW);
+            if (!this.allCoordinatesAndStatus.has(s)) {
+              newNeighbors.push(s);
+            }
           }
         }
       }
@@ -124,12 +129,17 @@ module.exports.PocketDimension = class PocketDimension {
     return newNeighbors;
   }
 
-  coordinatesToString(x, y, z) {
-    return `${x},${y},${z}`;
+  coordinatesToString(x, y, z, w) {
+    return `${x},${y},${z},${w}`;
   }
 
   keyToCoordinates(s) {
     const split = s.split(",");
-    return { x: Number(split[0]), y: Number(split[1]), z: Number(split[2]) };
+    return {
+      x: Number(split[0]),
+      y: Number(split[1]),
+      z: Number(split[2]),
+      w: Number(split[3]),
+    };
   }
 };
