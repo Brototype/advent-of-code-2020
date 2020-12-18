@@ -7,5 +7,8 @@ module.exports.part1 = (data) => {
 };
 
 module.exports.part2 = (data) => {
-  return data.length;
+  const calc = new Calculator();
+  return data
+    .map((eq) => calc.solvePlusFirst(eq))
+    .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
 };

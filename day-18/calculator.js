@@ -1,6 +1,21 @@
 module.exports.Calculator = class Calculator {
   constructor() {}
 
+  solvePlusFirst(equationString) {
+    // thank you https://en.wikipedia.org/wiki/Operator-precedence_parser#Alternative_methods
+    // this re-formats the whole equation to give precedence to plus
+    const transformedString =
+      "((" +
+      equationString
+        .replace(/\(/g, "(((")
+        .replace(/\)/g, ")))")
+        .replace(/\+/g, ")+(")
+        .replace(/\*/g, "))*((") +
+      "))";
+    const solution = eval(transformedString);
+    return solution;
+  }
+
   solve(equationString) {
     let eq = "" + equationString;
     if (!eq.includes(" ")) {
