@@ -15,6 +15,15 @@ describe("day-21", () => {
   });
 
   describe("part two", () => {
-    test("works with demo", () => {});
+    test("works with demo", () => {
+      const input = (
+        "mxmxvkd kfcds sqjhc nhms (contains dairy, fish)\n" +
+        "trh fvjkl sbzzf mxmxvkd (contains dairy)\n" +
+        "sqjhc fvjkl (contains soy)\n" +
+        "sqjhc mxmxvkd sbzzf (contains fish)"
+      ).split("\n");
+
+      expect(day.part2(input)).toBe("mxmxvkd,sqjhc,fvjkl");
+    });
   });
 });

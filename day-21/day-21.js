@@ -14,7 +14,41 @@ module.exports.part1 = (data) => {
 };
 
 module.exports.part2 = (data) => {
-  return data.length;
+  let foods = getFoods(data);
+  let ingredients = getIngredientsSet(foods);
+  let allergens = getAllergens(foods, ingredients);
+  determineAllergenIngredientMapping(foods, allergens);
+
+  // find the correct mapping of allergen to ingredient and put in list
+  let list = [];
+  let allergensLeft = new Set(Object.keys(allergens));
+  while (list.length < Object.keys(allergens).length) {
+    let delAllergen;
+    let delIngredient;
+    for (let allergen of allergensLeft) {
+      if (allergens[allergen].size === 1) {
+        delAllergen = allergen;
+        delIngredient = [...allergens[allergen]][0];
+        list.push({ ingredient: delIngredient, allergen: allergen });
+        break;
+      }
+    }
+    allergensLeft.delete(delAllergen);
+    for (let [allergen, ingredients] of Object.entries(allergens)) {
+      if (allergen !== delAllergen) {
+        ingredients.delete(delIngredient);
+      }
+    }
+  }
+
+  // sort the list by allergen
+  list.sort((a, b) => {
+    let textA = a.allergen.toUpperCase();
+    let textB = b.allergen.toUpperCase();
+    return textA < textB ? -1 : textA > textB ? 1 : 0;
+  });
+  list = list.map((item) => item.ingredient).join(",");
+  return list;
 };
 
 function getFoods(data) {
