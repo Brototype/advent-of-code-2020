@@ -1,5 +1,5 @@
 module.exports.part1 = (data) => {
-  let cups = data[0].split("").map((cup) => +cup);
+  let cups = data[0].split("").map((cup) => Number(cup));
   let top = cups.length;
   cups.unshift(cups.pop());
   for (let i = 0; i < 100; i++) {
@@ -11,7 +11,11 @@ module.exports.part1 = (data) => {
     while (cups.indexOf(destination) < 0) {
       if (n > 10) return;
       n++;
-      destination = destination === 1 ? top : destination - 1;
+      if (destination === 1) {
+        destination = top;
+      } else {
+        destination = destination - 1;
+      }
     }
     let index = cups.indexOf(destination) + 1;
     cups = cups.slice(0, index).concat(removed, cups.slice(index));
